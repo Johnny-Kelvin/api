@@ -1,6 +1,9 @@
 import * as ImagePicker from 'expo-image-picker';
 
+
+
 export default function EscolherImagem(imagem) {
+
 
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -13,6 +16,8 @@ export default function EscolherImagem(imagem) {
     } else {
       alert('You did not select any image.');
     }
+
+    
   }
   pickImageAsync()
 }

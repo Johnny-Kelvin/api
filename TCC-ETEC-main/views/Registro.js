@@ -1,28 +1,27 @@
 import React, {useState, useEffect} from 'react';
 import { KeyboardAvoidingView, TextInput, Text, Image, View, TouchableOpacity, Platform, Button, StatusBar} from 'react-native';
 import { css } from '../assets/css/RegistroStyle';
-import { useAuth } from '../auth/autenticacao';
+import { useAuth } from '../auth/contexto/auth';
 
 
 export default function Registro()
 {
 
     const [nome, setNome] = useState('')
+    const [data, setData] = useState('')
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
-    const {register} = useAuth()
+    const {signUp, loading} = useAuth()
 
-    const handleRegister = () =>{
-        register({nome, email, senha})
+    const handleRegister = (email, senha, nome ,data) =>{
+        signUp(email, senha, nome, data)
     }
 
     return(
     
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={[css.container, css.darkbg]}> 
-
-
-        
+      
         <View>
             <Image style={css.logo__image} source={require('../assets/img/logomenor.png')}/>
         </View>
@@ -42,10 +41,10 @@ export default function Registro()
         <TextInput style={css.login__input} placeholder='Digite o nome do(a) bebê' onChangeText={setNome}/>
 
         <Text  style={css.text_form}>Data de nascimento:</Text>
-        <TextInput style={css.login__input} placeholder='01/01/2000' />
+        <TextInput style={css.login__input} placeholder='01/01/2000' onChangeText={setData} />
          
     
-                <TouchableOpacity style={css.cadastrar__button} onPress={() => handleRegister()}>
+                <TouchableOpacity style={css.cadastrar__button} onPress={() => handleRegister(email, senha, nome, data)}>
                     <Text style={css.login__buttonText}>Cadastrar</Text>
                 </TouchableOpacity>
              

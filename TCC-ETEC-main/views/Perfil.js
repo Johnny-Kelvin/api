@@ -5,6 +5,7 @@ import { css } from '../assets/css/PerfilStyle';
 import {Entypo, MaterialIcons} from '@expo/vector-icons'
 import EscolherImagem from './componentes/EscolherImagemPerfil';
 import ImageViewer from './componentes/ImagemPerfil';
+import { useAuth } from '../auth/contexto/auth';
 
 
 
@@ -12,7 +13,7 @@ import ImageViewer from './componentes/ImagemPerfil';
  export default  Perfil = ({navigation}) => {
 
   const [imgSelecionada, setImgSelecionada] = useState(null)/*guardando a imagem de perfil*/ 
-
+  const {user} = useAuth();
   return (
 
     <ImageBackground style={css.login__imageback}  /*imagem da nuvem*/
@@ -28,7 +29,7 @@ import ImageViewer from './componentes/ImagemPerfil';
           <ImageViewer imagemPadrao={require('../assets/img/icon.png')} imagemSelecionada={imgSelecionada} style={css.foto_perfil}/>
         </Pressable>
       </View>
-      <Text style={css.nome_perfil}>Ana</Text>
+      <Text style={css.nome_perfil}>{`${(user?.nome_cri)?.charAt(0).toUpperCase() + (user?.nome_cri)?.slice(1)}`}</Text>
       <Text style={css.data_perfil}>2 meses e 5 dias</Text>
       <View style={css.row}>
 
