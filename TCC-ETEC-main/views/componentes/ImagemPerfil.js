@@ -18,7 +18,7 @@ export default function ImageViewer({ imagemPadrao, imagemSelecionada, style }) 
     async function setImage() {
       if (imagemSelecionada) {
         // Se uma imagem foi selecionada, atualize o estado 'imagem' com a nova URI
-        setImagem({ uri: imagemSelecionada });
+        setImagem({ uri: 'data:image/jpeg;base64,' + imagemSelecionada.base64 });
       } else {
         // Caso contrário, obtenha a imagem do banco de dados
         const res = await getImageDb();
@@ -27,20 +27,23 @@ export default function ImageViewer({ imagemPadrao, imagemSelecionada, style }) 
     }
 
     setImage();
-  }, [imagemSelecionada, user.id_cliente]);
+  }, [imagemSelecionada]);
 
   useEffect(() => {
+    
     if (imagemSelecionada) {
+      const img = 'data:image/jpeg;base64,' + imagemSelecionada.base64
       try {
         // Atualize a imagem no banco de dados
         api.patch(`crianca/${user.id_cliente}`, {
-          foto: imagemSelecionada
+          foto: img
         });
       } catch (error) {
         console.log(error);
       }
     }
-  }, [imagemSelecionada, user.id_cliente]);
+  }, [imagemSelecionada]);
+  console.log(imagemSelecionada)
 
   return <Image source={imagem} style={style} />;
 }

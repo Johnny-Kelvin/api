@@ -84,8 +84,13 @@ export const css = StyleSheet.create({
           marginBottom: 20, // Ajuste a margem inferior conforme necessário
           marginTop: 80, // Mover o botão "Adicionar" um pouco para cima
           borderRadius: 5,
-          overflow: 'hidden',
+          overflow: 'visible',
           backgroundColor: '#30cfa9',
+        },
+
+        buttonContainerButton: {
+          padding:10,
+          alignItems: "center",
         },
 
 

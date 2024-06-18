@@ -6,6 +6,7 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { format } from 'date-fns';
 import { useNavigation } from '@react-navigation/native';
 import { css } from "../assets/css/TelaSaudeStyle";
+import api from '../auth/services/api';
 
 const TelaSaude = () => {
   const navigation = useNavigation(); /* usenavigation navegar entre as telas do aplicativo, primero instalar o pacote.*/
@@ -24,8 +25,12 @@ const TelaSaude = () => {
   };
 
   const handleAdicionar = () => { /*quando clicar na botao adicionar*/
-    
-    navigation.navigate('Perfil');
+    const date = new Date().toLocaleDateString()
+    api.post('/crianca/evento',{
+      tipo: parseInt(selectedItem1),
+      descricao: selectedItem2,
+      data: date
+    }).then(navigation.navigate('Perfil'))
   };
 /*opçoes ao aperta o botao por favor, selecione*/
   const optionsForConsulta = [
@@ -83,10 +88,10 @@ const TelaSaude = () => {
             {/* Primeiro BOTAO SELECIONE */}
       <DropDownPicker /*seria o pacote */
         items={[
-          { label: 'Vacina', value: 'vacina' },
-          { label: 'Consulta', value: 'consulta' },
-          { label: 'Medicamento', value: 'medicamento' },
-          { label: 'Temperatura', value: 'temperatura' }
+          { label: 'Vacina', value: '1' },
+          { label: 'Consulta', value: '2' },
+          { label: 'Medicamento', value: '3' },
+          { label: 'Temperatura', value: '4' }
         ]}
         defaultValue={null}  /*ainda não foi selecionado nenhum item, por isso o null*/
         placeholder="Selecione" /*titulo do botao*/
@@ -104,9 +109,9 @@ const TelaSaude = () => {
 
       <DropDownPicker
         items={
-          selectedItem1 === 'consulta' ? optionsForConsulta : 
-          selectedItem1 === 'vacina' ? optionsForVacina :
-          selectedItem1 === 'medicamento' ? optionsForMedicamento :
+          selectedItem1 === '2' ? optionsForConsulta : 
+          selectedItem1 === '1' ? optionsForVacina :
+          selectedItem1 === '3' ? optionsForMedicamento :
           []
           /*Se selectedItem1 for igual a 'consulta, vacina, ou medicamento', o botao exibirá os itens contidos em optionsForConsulta,vacina,medicamento
           por exemplo em selectedItem1 === 'consulta' ? optionsForConsulta : vamos ter a opção de pediatra, dentista... */

@@ -13,18 +13,11 @@ export const css = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'space-between',
       padding: '8%',
-      
-
     },
 
     containerPerfil: {
         flex: 1,
-        
-        
-        
        },
-
-       
       foto_perfil: {
         width: 100,
         height: 100,

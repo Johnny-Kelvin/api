@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { View, Image, Text, StyleSheet, Button, TextInput } from 'react-native';
+import { View, Image, Text, StyleSheet, Button, TextInput, Pressable } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useNavigation } from '@react-navigation/native';
 import { css } from "../assets/css/TelaComprimentoStyle";
+import api from '../auth/services/api';
+import { useAuth } from '../auth/contexto/auth';
 
 
 const TelaComprimento = () => { /*item de seleção para o resgistro*/
@@ -11,11 +13,22 @@ const TelaComprimento = () => { /*item de seleção para o resgistro*/
   const [open, setOpen] = useState(false);
   const [altura, setAltura] = useState('');
   const [peso, setPeso] = useState('');
+  const {user} = useAuth();
 
   const navigation = useNavigation(); /*permite a navegação entra as telas*/
 
   const handleAdicionar = () => { /*funçao que faz parte do botao adicionar, registra os valores item, altura e peso, para quando eu adicionar ele salva*/
-  
+    console.log(user)
+    const altuPeso = selectedItem == 'Peso' ? peso: altura
+    const select = selectedItem
+    try {
+      api.patch(`/crianca/${user.Crianca.id_crianca}`,{
+        peso: selectedItem == 'Peso' ? peso: null,
+        altura: selectedItem == 'Altura' ? altura: null
+      }).then(res => {console.log(res), navigation.goBack()})
+    } catch (error) {
+      console.error(error)
+    }
   };
 
   const formatarAltura = (text) => { /*formatação do input, como vai aparecer para o registro*/ 
@@ -27,6 +40,9 @@ const TelaComprimento = () => { /*item de seleção para o resgistro*/
     const formattedText = text.replace(/[^0-9.]/g, ''); /*numeros de 0 ate 9, com . e g*/
     return formattedText;
   };
+
+
+  
 
   return (
     <View style={css.container}>
@@ -88,11 +104,9 @@ const TelaComprimento = () => { /*item de seleção para o resgistro*/
       )}
 
       <View style={css.buttonContainer}>
-        <Button
-          title="Adicionar"
-          color='#FFF'
-          onPress={handleAdicionar}
-        />
+        <Pressable style={css.buttonContainerButton} onPress={handleAdicionar}>
+          <Text style={{color:'white'}}>Adicionar</Text>
+        </Pressable>
       </View>
     </View>
   );

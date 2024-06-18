@@ -101,7 +101,7 @@ class Botaomenu  extends Component {
 
       {/* BOTÃO MEDIDAS*/}
           {/* chama a o navigation pelas propriedades que ele recebeu   */}
-      <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('TelaComprimento')}> 
+      <TouchableWithoutFeedback onPress={() => {this.toggleMenu(), this.props.navigation.navigate('TelaComprimento')}}> 
         <Animated.View style={[style.button, style.submenu, style.medidabutton, rulerStyle]}>
           <Entypo name= "ruler" size={23} color= "#000"/>
         </Animated.View> 
@@ -109,7 +109,7 @@ class Botaomenu  extends Component {
 
 
       {/* BOTÃO ALIMENTAÇÃO*/}
-      <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('TelaAlimento')} > 
+      <TouchableWithoutFeedback onPress={() => {this.toggleMenu(),this.props.navigation.navigate('TelaAlimento')}} > 
         <Animated.View style={[style.button, style.submenu, style.alimentobutton, drinkStyle]}>
           <MaterialCommunityIcons name="baby-bottle" size={26} color="#000" />
         </Animated.View>
@@ -117,7 +117,7 @@ class Botaomenu  extends Component {
       
 
       {/* BOTÃO SONO*/}
-      <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('TelaSono')}> 
+      <TouchableWithoutFeedback onPress={() => {this.toggleMenu(), this.props.navigation.navigate('TelaSono')}}> 
         <Animated.View style={[style.button, style.submenu, style.sonobutton, moonStyle]}>
           <MaterialCommunityIcons name="cradle" size={27} color="#000" />
         </Animated.View>
@@ -125,7 +125,7 @@ class Botaomenu  extends Component {
 
 
       {/* BOTÃO SAÚDE*/}
-      <TouchableWithoutFeedback  onPress={() => this.props.navigation.navigate('TelaSaude')} > 
+      <TouchableWithoutFeedback  onPress={() => {this.toggleMenu(), this.props.navigation.navigate('TelaSaude')}} > 
         <Animated.View style={[style.button, style.submenu, style.saudebutton, heartStyle]}>
           <MaterialIcons name= "medication-liquid" size={26} color={"#000"}/>
         </Animated.View>

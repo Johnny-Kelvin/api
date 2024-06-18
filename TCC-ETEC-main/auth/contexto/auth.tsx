@@ -23,6 +23,7 @@ interface AuthContextData {
   signIn(email:string, senha:string): Promise<void>;
   signUp(email:string, senha:string, nome:string, data:string): Promise<void>;
   signOut(): void;
+  setUpdateDados(user): void
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -76,6 +77,13 @@ const AuthProvider: React.FC = ({children}) => {
    
   }
 
+  function setUpdateDados(data){
+    let updateUser = user
+    delete data.foto
+    updateUser = data
+    setUser(updateUser)
+  }
+
   async function signUp(email: string, senha: string, nome: string, data: string) {
     
     try {
@@ -115,7 +123,7 @@ const AuthProvider: React.FC = ({children}) => {
 
   return (
     <AuthContext.Provider
-      value={{signed: !!user, user, loading, signIn, signUp, signOut}}>
+      value={{signed: !!user, user, loading, signIn, signUp, signOut, setUpdateDados}}>
       {children}
     </AuthContext.Provider>
   );
