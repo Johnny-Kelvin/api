@@ -18,7 +18,7 @@ import EventosView from './componentes/EventosView';
  export default  Perfil = ({navigation}) => {
 
   const [imgSelecionada, setImgSelecionada] = useState(null)/*guardando a imagem de perfil*/ 
-  const {user, setUpdateDados} = useAuth();
+  const {user, setUpdateDados, signOut} = useAuth();
   const [idade, setIdade] = useState({ meses: 0, dias: 0})
   const [eventos, setEventos] = useState([]);
 
@@ -67,8 +67,9 @@ import EventosView from './componentes/EventosView';
     <View style={css.containerPerfil}>
       <View>
         <View style={css.buttonsup}>
-        <MaterialIcons name="settings" size={26} color="#000"/>
-        <Entypo name="bar-graph" size={26} color="#000"/>
+          <Pressable onPress={() => signOut()}>
+        <Entypo style={{transform:'scaleX(-1)'}}name="log-out" size={26} color="#000"/>
+        </Pressable>
         </View>
         <Pressable onPress={() => EscolherImagem(setImgSelecionada)}>
           <ImageViewer imagemPadrao={require('../assets/img/icon.png')} imagemSelecionada={imgSelecionada} style={css.foto_perfil}/>

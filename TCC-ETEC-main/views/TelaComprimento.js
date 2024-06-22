@@ -23,8 +23,8 @@ const TelaComprimento = () => { /*item de seleção para o resgistro*/
     const select = selectedItem
     try {
       api.patch(`/crianca/${user.Crianca.id_crianca}`,{
-        peso: selectedItem == 'Peso' ? peso: null,
-        altura: selectedItem == 'Altura' ? altura: null
+        peso: selectedItem == 'Peso' ? peso: undefined,
+        altura: selectedItem == 'Altura' ? altura: undefined
       }).then(res => {console.log(res), navigation.goBack()})
     } catch (error) {
       console.error(error)
